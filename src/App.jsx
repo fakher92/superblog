@@ -7,12 +7,14 @@ class App extends React.Component {
     this.state = {
       posts: [],
       form: {},
-      editing: null
+      editing: null,
+      searchData: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleSearchInput = this.handleSearchInput.bind(this);
   }
   componentWillMount() {
     fetch(`http://localhost:5000/api/posts`).then(resp => resp.json()).then(posts => {
@@ -81,8 +83,21 @@ class App extends React.Component {
       editing: post
     })
   }
+
+  handleSearchInput(e) {
+    console.log(e.target.value);
+    const searchData = e.target.value;
+    this.setState({searchData: searchData});
+  }
+
+
   render() {
-    const posttemplate = this.state.posts.map(post => (
+    var posts = [...this.state.posts]
+    console.log(posts.length && this.state.searchData)
+    if(posts.length > 0 && this.state.searchData){
+      posts = posts.filter(post => post.name.toLowerCase().includes(this.state.searchData.toLowerCase()) )
+    }
+    const posttemplate = posts.map(post => (
             this.state.editing && this.state.editing._id === post._id ? (
               <form onSubmit={(event) => this.handleUpdate(event, post)}>
                 <div className="form-group">
@@ -109,11 +124,10 @@ class App extends React.Component {
             <a className="btn-floating btn-small right mr-2 cyan pulse" onClick={() => this.handleDelete(post._id)}><i className="material-icons">cancel</i></a>
             <h2>{post.name}</h2>
             <p>{post.content}</p>
-            
           </li>
         )
       ))
-
+          
     return (
       <div className="container">
         <div className="row">
@@ -148,7 +162,13 @@ class App extends React.Component {
             <div className="nav-wrapper">
             <form>
               <div className="input-field">
-                <input id="search" type="search" required/>
+
+                <input 
+                id="search" type="search" 
+                value={this.searchData} 
+                onChange={this.handleSearchInput}
+                required/>
+
                 <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
                 <i className="material-icons">close</i>
               </div>
