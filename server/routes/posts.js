@@ -16,7 +16,7 @@ module.exports = function(router){
         if (err)
           res.send(err);
         console.log("Post created:", post);
-        res.json({ message: 'post created!' });
+        res.json({ message: 'post created!', post: post });
       });
 
     })
