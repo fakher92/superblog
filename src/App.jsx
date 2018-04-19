@@ -98,15 +98,18 @@ class App extends React.Component {
                   </label>
                 </div>
                 <div className="form-group">
-                  <input className="btn btn-primary" type="submit" value="Submit"/>
+                  <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i className="material-icons right">send</i>
+                  </button>
                 </div>
               </form>
           ) : (
           <li className="list-group-item">
+            <a className="btn-floating btn-small right mr-2 cyan pulse" onClick={() => this.handleEdit(post)}><i className="material-icons">edit</i></a>
+            <a className="btn-floating btn-small right mr-2 cyan pulse" onClick={() => this.handleDelete(post._id)}><i className="material-icons">cancel</i></a>
             <h2>{post.name}</h2>
             <p>{post.content}</p>
-            <button className="btn btn-info" onClick={() => this.handleEdit(post)}>Edit</button>
-            <button className="btn btn-danger" onClick={() => this.handleDelete(post._id)}>Remove</button>
+            
           </li>
         )
       ))
@@ -131,7 +134,9 @@ class App extends React.Component {
                   </label>
                 </div>
                 <div className="form-group">
-                  <input className="btn btn-primary" type="submit" value="Submit"/>
+                  <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i className="material-icons right">send</i>
+                  </button>
                 </div>
               </form>
             </div>
