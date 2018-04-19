@@ -124,13 +124,13 @@ class App extends React.Component {
                 <div className="form-group">
                   <label className="w-100">
                     Name:
-                    <input className="form-control" id="name" onChange={this.handleChange}/>
+                    <input className="form-control" id="name" onChange={this.handleChange} required/>
                   </label>
                 </div>
                 <div className="form-group">
                   <label className="w-100">
                     Content:
-                    <textarea id="content" className="materialize-textarea" onChange={this.handleChange}/>
+                    <textarea id="content" className="materialize-textarea" onChange={this.handleChange} required/>
                   </label>
                 </div>
                 <div className="form-group">
@@ -144,6 +144,17 @@ class App extends React.Component {
           <div className="col-md-8">
             <div className="my-3">
               <h2>List of all posts:</h2>
+          <nav>
+            <div className="nav-wrapper">
+            <form>
+              <div className="input-field">
+                <input id="search" type="search" required/>
+                <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
+                <i className="material-icons">close</i>
+              </div>
+              </form>
+            </div>
+          </nav>
               <ul className="list-group">
                 {posttemplate }
               </ul>
